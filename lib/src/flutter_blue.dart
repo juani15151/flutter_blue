@@ -122,8 +122,8 @@ class FlutterBlue {
 
   Future startScan({
     ScanMode scanMode = ScanMode.lowLatency,
-    List<Guid> withServices = const [],
-    List<Guid> withDevices = const [],
+    List<Uuid> withServices = const [],
+    List<Uuid> withDevices = const [],
     Duration timeout,
   }) async {
     await scan(

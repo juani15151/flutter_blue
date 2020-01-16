@@ -5,22 +5,22 @@
 part of flutter_blue;
 
 class BluetoothDescriptor {
-  static final Guid CCCD = new Guid("00002902-0000-1000-8000-00805f9b34fb");
+  static final Uuid CCCD = Uuid.fromString("00002902-0000-1000-8000-00805f9b34fb");
 
-  final Guid uuid;
-  final Guid serviceUuid; // The service that this descriptor belongs to.
-  final Guid
-      characteristicUuid; // The characteristic that this descriptor belongs to.
+  final Uuid uuid;
+  final Uuid serviceUuid; // The service that this descriptor belongs to.
+  final BluetoothCharacteristicIdentifier
+      characteristicId; // The characteristic that this descriptor belongs to.
   List<int> value;
 
   BluetoothDescriptor(
       {@required this.uuid,
       @required this.serviceUuid,
-      @required this.characteristicUuid});
+      @required this.characteristicId});
 
   BluetoothDescriptor.fromProto(protos.BluetoothDescriptor p)
-      : uuid = new Guid(p.uuid),
-        serviceUuid = new Guid(p.serviceUuid),
-        characteristicUuid = new Guid(p.characteristicUuid),
+      : uuid = Uuid.fromString(p.uuid),
+        serviceUuid = Uuid.fromString(p.serviceUuid),
+        characteristicId = BluetoothCharacteristicIdentifier.fromProto(p.characteristicId),
         value = p.value;
 }

@@ -39,7 +39,7 @@ class _FlutterBlueAppState extends State<FlutterBlueApp> {
   StreamSubscription deviceConnection;
   StreamSubscription deviceStateSubscription;
   List<BluetoothService> services = new List();
-  Map<Guid, StreamSubscription> valueChangedSubscriptions = {};
+  Map<BluetoothCharacteristicIdentifier, StreamSubscription> valueChangedSubscriptions = {};
   BluetoothDeviceState deviceState = BluetoothDeviceState.disconnected;
 
   @override
@@ -75,7 +75,7 @@ class _FlutterBlueAppState extends State<FlutterBlueApp> {
         .scan(
       timeout: const Duration(seconds: 5),
       /*withServices: [
-          new Guid('0000180F-0000-1000-8000-00805F9B34FB')
+          Uuid.fromString('0000180F-0000-1000-8000-00805F9B34FB')
         ]*/
     )
         .listen((scanResult) {
@@ -171,8 +171,8 @@ class _FlutterBlueAppState extends State<FlutterBlueApp> {
     if (c.isNotifying) {
       await device.setNotifyValue(c, false);
       // Cancel subscription
-      valueChangedSubscriptions[c.uuid]?.cancel();
-      valueChangedSubscriptions.remove(c.uuid);
+      valueChangedSubscriptions[c.id]?.cancel();
+      valueChangedSubscriptions.remove(c.id);
     } else {
       await device.setNotifyValue(c, true);
       // ignore: cancel_subscriptions
@@ -182,7 +182,7 @@ class _FlutterBlueAppState extends State<FlutterBlueApp> {
         });
       });
       // Add to map
-      valueChangedSubscriptions[c.uuid] = sub;
+      valueChangedSubscriptions[c.id] = sub;
     }
     setState(() {});
   }

@@ -15,10 +15,10 @@ dependencies:
   convert: "^2.1.1"
   protobuf: "^1.0.0"
   rxdart: ^0.23.1
+  uuid_enhanced: ^3.0.2
 
 dev_dependencies:
   perfectionist: ^2.0.0
-  uuid_enhanced: ^3.0.2
   flutter_test:
     sdk: flutter
 
